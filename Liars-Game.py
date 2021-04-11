@@ -157,3 +157,34 @@ class Player:
         pass
     
 
+   
+class strategy(Player):
+    """
+    Custom strategy
+    """
+    def __init__(self, name = name, num_risky_rounds = 2, risky_min_frac = 0.4, risky_bias = 0.1):
+        self.name            = name
+        self.risk_rounds     = num_risky_rounds
+        self.risk_fracs      = risky_min_frac
+        self.risk_bias       = risky_bias
+        self.current_round   = 1
+        
+    def move(self, status):
+        # For the first risk_rounds, adopt an agressive, risky strategy based on fraction of the minimum with bias. Otherwise, minimum
+        min_money = min(status.money_values())
+        if self.current_round <= self.risk_rounds:
+            # Risky bet!
+            bet   = min_money * (risky_bias + risky_min_frac * random.random())
+            self.current_round += 1
+            
+        else:
+            bet   = min_money + 1e-9
+            
+        return bet
+    
+            
+            
+        
+        
+        
+        
